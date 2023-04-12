@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class SudokuBoard {
     private int[][] board;
+    final int[][] BOARDCOPY;
     private int boardSize;
     private int boxSize;
 
@@ -9,6 +10,7 @@ public class SudokuBoard {
         this.board = board;
         this.boardSize = board.length;
         this.boxSize = (int) Math.sqrt(boardSize);
+        this.BOARDCOPY = board;
     }
 
     public void makeMove(int num, int r, int c) {
@@ -55,6 +57,10 @@ public class SudokuBoard {
         }
         return true;
     }
+
+    public void resetBoard() {
+        board = BOARDCOPY;
+    }
     
     public void printBoard() {
         for (int i = 0; i < boardSize; i++) {
@@ -92,15 +98,15 @@ public class SudokuBoard {
 
     public static void main(String[] args) {
         int[][] board = {
-            {0, 0, 0, 0, 8, 0, 0, 7, 0},
-            {0, 4, 0, 2, 0, 7, 0, 0, 0},
-            {0, 0, 7, 0, 0, 3, 5, 4, 9},
-            {2, 0, 0, 0, 0, 0, 3, 0, 0},
-            {0, 0, 6, 0, 3, 0, 0, 0, 0},
-            {7, 0, 0, 0, 9, 6, 0, 8, 0},
-            {3, 0, 0, 5, 0, 1, 0, 2, 8},
-            {1, 8, 0, 4, 0, 0, 0, 6, 3},
-            {0, 6, 0, 0, 0, 0, 4, 0, 0}};
+            {1, 0, 0, 0, 0, 7, 0, 9, 0},
+            {0, 3, 0, 0, 2, 0, 0, 0, 8},
+            {0, 0, 9, 6, 0, 0, 5, 0, 0},
+            {0, 0, 5, 3, 0, 0, 9, 0, 0},
+            {0, 1, 0, 0, 8, 0, 0, 0, 2},
+            {6, 0, 0, 0, 0, 4, 0, 0, 0},
+            {3, 0, 0, 0, 0, 0, 0, 1, 0},
+            {0, 4, 0, 0, 0, 0, 0, 0, 7},
+            {0, 0, 7, 0, 0, 0, 3, 0, 0}};
         SudokuBoard a = new SudokuBoard(board);
         Scanner s = new Scanner(System.in);
         while (!a.isWin(board)) {
@@ -114,6 +120,16 @@ public class SudokuBoard {
             int num = s.nextInt();
             a.makeMove(num, row-1, col-1);
         }
-        s.close();
+        if (a.isWin(board)) {
+            System.out.println(a.toString());
+            System.out.println("You win!!");
+            System.out.println("play again? (1 = yes   2 = no)");
+            int again = s.nextInt();
+            if (again == 2) {
+                s.close();
+            } else if (again == 1) {
+                a.resetBoard();
+            }
+        }
     }
 }
