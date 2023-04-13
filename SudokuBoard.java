@@ -49,13 +49,13 @@ public class SudokuBoard {
 
     public boolean isValid(int num, int r, int c) {
         // check row
-        for (int i = 0; i < boardSize; i++) {
+        for (int i = 0; i < 9; i++) {
             if (board[r][i] == num) {
                 return false;
             }
         }
         // check col
-        for (int i = 0; i < boardSize; i++) {
+        for (int i = 0; i < 9; i++) {
             if (board[i][c] == num) {
                 return false;
             }
@@ -164,11 +164,15 @@ public class SudokuBoard {
                         rand--;
                         if (isValid(rand, r, c)) {
                             board[r][c] = rand;
+                        } else {
+                            board[r][c] = 0;
                         }
                     } else if (rand<5) {
                         rand++;
                         if (isValid(rand, r, c)) {
                             board[r][c] = rand;
+                        } else {
+                            board[r][c] = 0;
                         }
                     } else {
                         board[r][c] = 0;
@@ -208,8 +212,18 @@ public class SudokuBoard {
     }
 
     public static void main(String[] args) {
-        int[][] board = null;
+        int[][] board =
+         {{0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0},
+          {0, 0, 0, 0, 0, 0, 0, 0, 0}};
         SudokuBoard a = new SudokuBoard(board);
+        board = a.generatedBoard();
         Scanner s = new Scanner(System.in);
         while (!a.isWin(board)) {
             System.out.println(a.toString());
