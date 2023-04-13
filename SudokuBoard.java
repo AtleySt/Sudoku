@@ -186,6 +186,18 @@ public class SudokuBoard {
         return board;
     }
 
+    public void checkBoard() {
+        int[][] board = new int[boardSize][boardSize]; 
+        for (int r=0; r < boardSize; r++) {
+            for (int c=0; c < boardSize; c++) {
+                if (!isValid(board[r][c], r, c)) {
+                    board[r][c] = 0;
+                }
+            }
+        }
+        this.board = board;
+    }
+
     public String toString() {
         String res = "";
         res += " C 1 2 3   4 5 6   7 8 9";
@@ -224,6 +236,7 @@ public class SudokuBoard {
           {0, 0, 0, 0, 0, 0, 0, 0, 0}};
         SudokuBoard a = new SudokuBoard(board);
         board = a.generatedBoard();
+        a.checkBoard();
         Scanner s = new Scanner(System.in);
         while (!a.isWin(board)) {
             System.out.println(a.toString());
