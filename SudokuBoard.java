@@ -41,7 +41,7 @@ public class SudokuBoard {
 
     public void makeMove(int num, int r, int c) {
         if (isValid(num, r, c)) {
-            board[r][c] += num;
+            board[r][c] = num;
         } else {
             System.out.println("Invalid Move");
         }
@@ -97,94 +97,65 @@ public class SudokuBoard {
         }
     }
 
-    // public int increment(int randomNumber, int a, int b) {
-    //     for (int i = randomNumber; i <= 9; i++) { // Loop up till random number gets to 9
-    //         if (isValid(randomNumber, a, b)) { // Check valid every loop
-    //             break; // Stop if it is valid
-    //         } else {
-    //             continue; // Continue if not
-    //         }
-    //     }
-    //     return randomNumber;
-    // }
-
-    // public int decrement(int randomNumber, int a, int b) {
-    //     for (int i = randomNumber; i <= 0; i++) { // Loop till random number gets to 0
-    //         if (isValid(randomNumber, a, b)) { // Check valid every loop
-    //             break; // Stop if it is valid
-    //         } else {
-    //             continue; // Continue if not
-    //         }
-    //     }
-    //     return randomNumber;
-    // }
-
-    // public void generateBoard() {
-    //     String test = "{ ";
+    // public int[][] generatedBoard() {
     //     int[][] board = new int[boardSize][boardSize];
-
-    //     for (int a = 0; a < boardSize; a++) { // Make board filled with zeros
-    //         for (int b = 0; b < boardSize; b++) {
-    //             board[a][b] = 0;
+    //     for (int r=0; r < boardSize; r++) {
+    //         for (int c=0; c < boardSize; c++) {
+    //             double seventy = Math.random();
+    //             if (seventy >= .7) {
+    //                 int rand = (int) (Math.random() *9)+1;
+    //                 if (isValid(rand, r, c)) {
+    //                     board[r][c] = rand;
+    //                 } else if (rand > 4){
+    //                     rand--;
+    //                     if (isValid(rand, r, c)) {
+    //                         board[r][c] = rand;
+    //                     } else {
+    //                         board[r][c] = 0;
+    //                     }
+    //                 } else if (rand<5) {
+    //                     rand++;
+    //                     if (isValid(rand, r, c)) {
+    //                         board[r][c] = rand;
+    //                     } else {
+    //                         board[r][c] = 0;
+    //                     }
+    //                 } else {
+    //                     board[r][c] = 0;
+    //                 }
+    //             } else {
+    //                 board[r][c] = 0;
+    //             }
     //         }
     //     }
+    //     this.board = board;
+    //     return board;
+    // }
 
-    //     for (int a = 0; a < boardSize; a++) {
-    //         for (int b = 0; b < boardSize; b++) {
-    //             int randomNumber = (int) (Math.random() *9) +1;
-    //             if (!isValid(randomNumber, a, b)) { // If random number is not valid
-    //                 if (randomNumber >= 5) { // Greater than 4
-    //                     randomNumber = increment(randomNumber, a, b); // Increment up to 5-9
-    //                     randomNumber = 4; // set to be lower than original
-    //                     randomNumber = decrement(randomNumber, a, b); // Decrement from 4-0
-    //                 }
-    //                 if (randomNumber < 5) { // Less than 5
-    //                     randomNumber = decrement(randomNumber, a, b); // Decrement from 4-0
-    //                     randomNumber = 5; // set to be lower than original
-    //                     randomNumber = increment(randomNumber, a, b); // Increment up to 5-9
+    // public int[][] generateBoardattempttwo() {
+    //     int[][] board = new int[boardSize][boardSize];
+    //     for (int r = 0; r < boardSize; r++) {
+    //         for (int c = 0; c < boardSize; c++) {
+    //             int randomNum = (int) (Math.random()*9) +1;
+    //             for (int num = randomNum; num <= 9; num ++) {
+    //                 if (isValid(num, r, c)) {
+    //                     board[r][c] = num;
+    //                     break;
     //                 }
     //             }
-    //             board[a][b] = randomNumber;
-    //             test+=board[a][b] + ", ";
+    //             if (board[r][c] == 0) {
+    //                 for (int num = randomNum; num <= 1; num--) {
+    //                     if (isValid(num, r, c)) {
+    //                         board[r][c] = num;
+    //                         break;
+    //                     }
+    //                 }
+    //             }
     //         }
     //     }
-    //     System.out.println(Arrays.asList(test));
+    //     this.board = board;
+    //     return board;
     // }
-
-    public int[][] generatedBoard() {
-        int[][] board = new int[boardSize][boardSize];
-        for (int r=0; r < boardSize; r++) {
-            for (int c=0; c < boardSize; c++) {
-                double seventy = Math.random();
-                if (seventy >= .7) {
-                    int rand = (int) (Math.random() *9)+1;
-                    if (isValid(rand, r, c)) {
-                        board[r][c] = rand;
-                    } else if (rand > 4){
-                        rand--;
-                        if (isValid(rand, r, c)) {
-                            board[r][c] = rand;
-                        } else {
-                            board[r][c] = 0;
-                        }
-                    } else if (rand<5) {
-                        rand++;
-                        if (isValid(rand, r, c)) {
-                            board[r][c] = rand;
-                        } else {
-                            board[r][c] = 0;
-                        }
-                    } else {
-                        board[r][c] = 0;
-                    }
-                } else {
-                    board[r][c] = 0;
-                }
-            }
-        }
-        this.board = board;
-        return board;
-    }
 
     public void checkBoard() {
         int[][] board = new int[boardSize][boardSize]; 
@@ -235,8 +206,7 @@ public class SudokuBoard {
           {0, 0, 0, 0, 0, 0, 0, 0, 0},
           {0, 0, 0, 0, 0, 0, 0, 0, 0}};
         SudokuBoard a = new SudokuBoard(board);
-        board = a.generatedBoard();
-        a.checkBoard();
+        // board = a.generateBoardattempttwo();
         Scanner s = new Scanner(System.in);
         while (!a.isWin(board)) {
             System.out.println(a.toString());
